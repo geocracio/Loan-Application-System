@@ -92,6 +92,7 @@ export default {
         currentJobYears: 0,
         currentHouseYear: 0
       };
+      console.log(postData)
       axios.post('http://127.0.0.1:8000/predict', postData)
         .then(response => {
           this.predictions = response.data.predictions;
@@ -102,28 +103,18 @@ export default {
         });
     },
     async submitForm() {
-      // const postData = {
-      //   income: this.income,
-      //   age: this.age,
-      //   experience: this.experience,
-      //   maritalStatus: this.maritalStatus,
-      //   houseOwnership: this.houseOwnership,
-      //   carOwnership: this.carOwnership,
-      //   profession: this.profession,
-      //   currentJobYears: this.currentJobYears,
-      //   currentHouseYear: this.currentHouseYears,
-      // };
       const postData = {
-        income: 0,
-        age: 0,
-        experience: 0,
-        maritalStatus: "string",
-        houseOwnership: "string",
-        carOwnership: "string",
-        profession: "string",
-        currentJobYears: 0,
-        currentHouseYear: 0
+        income: this.income,
+        age: this.age,
+        experience: this.experience,
+        maritalStatus: this.maritalStatus,
+        houseOwnership: this.houseOwnership,
+        carOwnership: this.carOwnership,
+        profession: this.profession,
+        currentJobYears: this.currentJobYears,
+        currentHouseYear: this.currentHouseYears,
       };
+      console.log(postData)
       axios.post('http://127.0.0.1:8000/predict', postData)
         .then(response => {
           this.predictions = response.data.predictions;
@@ -131,18 +122,6 @@ export default {
         .catch(error => {
           console.error(error);
         });
-
-      console.log(
-        this.income,
-        this.age,
-        this.experience,
-        this.maritalStatus,
-        this.houseOwnership,
-        this.carOwnership,
-        this.profession,
-        this.currentJobYears,
-        this.currentHouseYears
-      );
     },
   },
 };
