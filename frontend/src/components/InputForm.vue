@@ -1,67 +1,65 @@
 <template>
-  <div>
-    <form>
-      <div class="title">Loan Approver</div>
-      <div class="subtitle">Apply for your next credit!</div>
-      <button @click="checkAPI">click me</button>
-      <div class="row">
-        <div class="input-container ic1">
-          <input class="input" type="text" required placeholder=" " v-model="income"/>
-          <div class="cut"></div>
-          <label class="placeholder">Income</label>
-        </div>
-        <div class="input-container ic1">
-          <input class="input" type="text" required placeholder=" " v-model="age"/>
-          <div class="cut"></div>
-          <label class="placeholder">Age</label>
-        </div>
+  <form>
+    <div class="title">Loan Approver</div>
+    <div class="subtitle">Apply for your next credit!</div>
+    <button @click="checkAPI">click me</button>
+    <div class="row">
+      <div class="input-container ic1">
+        <input class="input" type="text" required placeholder=" " v-model="income"/>
+        <div class="cut"></div>
+        <label class="placeholder">Income</label>
       </div>
-      <div class="row">
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="experience"/>
-          <div class="cut"></div>
-          <label class="placeholder">Experience</label>
-        </div>
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="maritalStatus"/>
-          <div class="cut"></div>
-          <label class="placeholder">Marital Status</label>
-        </div>
+      <div class="input-container ic1">
+        <input class="input" type="text" required placeholder=" " v-model="age"/>
+        <div class="cut"></div>
+        <label class="placeholder">Age</label>
       </div>
-      <div class="row">
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="houseOwnership"/>
-          <div class="cut"></div>
-          <label class="placeholder">House Ownership</label>
-        </div>
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="carOwnership"/>
-          <div class="cut"></div>
-          <label class="placeholder">Car Ownership</label>
-        </div>
+    </div>
+    <div class="row">
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="experience"/>
+        <div class="cut"></div>
+        <label class="placeholder">Experience</label>
       </div>
-      <div class="row">
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="profession"/>
-          <div class="cut"></div>
-          <label class="placeholder">Profession</label>
-        </div>
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="currentJobYears"/>
-          <div class="cut"></div>
-          <label class="placeholder">Current Job Years</label>
-        </div>
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="maritalStatus"/>
+        <div class="cut"></div>
+        <label class="placeholder">Marital Status</label>
       </div>
-      <div class="row">
-        <div class="input-container ic2">
-          <input class="input" type="text" required placeholder=" " v-model="currentHouseYears"/>
-          <div class="cut"></div>
-          <label class="placeholder">Current House Years</label>
-        </div>
+    </div>
+    <div class="row">
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="houseOwnership"/>
+        <div class="cut"></div>
+        <label class="placeholder">House Ownership</label>
       </div>
-      <button @click="submitForm" class="submit">Submit</button>
-    </form>
-  </div>
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="carOwnership"/>
+        <div class="cut"></div>
+        <label class="placeholder">Car Ownership</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="profession"/>
+        <div class="cut"></div>
+        <label class="placeholder">Profession</label>
+      </div>
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="currentJobYears"/>
+        <div class="cut"></div>
+        <label class="placeholder">Current Job Years</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-container ic2">
+        <input class="input" type="text" required placeholder=" " v-model="currentHouseYears"/>
+        <div class="cut"></div>
+        <label class="placeholder">Current House Years</label>
+      </div>
+    </div>
+    <button @click="submitForm" class="submit">Submit</button>
+  </form>
 </template>
 
 <script>
@@ -94,11 +92,11 @@ export default {
         currentJobYears: 0,
         currentHouseYear: 0
       };
-      console.log(postData)
       axios.post('http://127.0.0.1:8000/predict', postData)
         .then(response => {
-          this.predictions = response.data.predictions;
-          console.log(response)
+          this.predictions = response.data;
+          console.log(this.predictions)
+          this.$emit('backendResponse', this.predictions);
         })
         .catch(error => {
           console.error(error);
@@ -114,18 +112,18 @@ export default {
         carOwnership: this.carOwnership,
         profession: this.profession,
         currentJobYears: this.currentJobYears,
-        currentHouseYear: this.currentHouseYears,
+        currentHouseYear: this.currentHouseYears
       };
-      console.log(postData)
       axios.post('http://127.0.0.1:8000/predict', postData)
         .then(response => {
-          this.predictions = response.data.predictions;
+          this.predictions = response.data;
+          this.$emit('backendResponse', this.predictions);
         })
         .catch(error => {
           console.error(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
